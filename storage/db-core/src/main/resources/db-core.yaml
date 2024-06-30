@@ -1,0 +1,23 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  jpa:
+    open-in-view: false
+    hibernate:
+      dialect: org.hibernate.dialect.MySQLDialect
+      ddl-auto: none
+    properties:
+      hibernate.default_batch_fetch_size: 100
+
+---
+spring.config.activate.on-profile: local
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DATABASE_URL}:${DATABASE_PORT}/${DATABASE_NAME}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    pool-name: core-db-pool
+    data-source-properties:
+      rewriteBatchedStatements: true
