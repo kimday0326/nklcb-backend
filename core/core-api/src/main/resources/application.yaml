@@ -1,9 +1,9 @@
 spring.application.name: core-api
 spring.profiles.active: local
-
 spring:
   config:
     import:
+      - optional:file:.env[.properties]
       - db-core.yaml
   #      - monitoring.yml
   #      - logging.yml
