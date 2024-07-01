@@ -12,8 +12,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "article")
 public class Article extends BaseEntity {
 
@@ -44,4 +47,27 @@ public class Article extends BaseEntity {
 
 	@OneToMany(mappedBy = "article")
 	private List<ArticleTag> articleTags;
+
+	@Builder
+	public Article(
+		final Long id,
+		final String title,
+		final String summary,
+		final String content,
+		final String author,
+		final String link,
+		final LocalDateTime publishedAt,
+		final boolean isNotified,
+		final Company company,
+		final List<ArticleTag> articleTags) {
+		this.title = title;
+		this.summary = summary;
+		this.content = content;
+		this.author = author;
+		this.link = link;
+		this.publishedAt = publishedAt;
+		this.isNotified = isNotified;
+		this.company = company;
+		this.articleTags = articleTags;
+	}
 }
