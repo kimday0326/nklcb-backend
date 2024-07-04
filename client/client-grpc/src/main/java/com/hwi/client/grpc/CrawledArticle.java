@@ -16,7 +16,7 @@ public class CrawledArticle {
 	private String author;
 	private String link;
 	private LocalDateTime publishedAt;
-	private List<String> tags;
+	private List<String> keywords;
 
 	@Builder
 	public CrawledArticle(
@@ -25,12 +25,14 @@ public class CrawledArticle {
 		String content,
 		String author,
 		String link,
-		LocalDateTime publishedAt) {
+		LocalDateTime publishedAt,
+		List<String> keywords) {
 		this.title = title;
 		this.summary = summary;
 		this.content = content;
 		this.author = author;
 		this.link = link;
 		this.publishedAt = publishedAt;
+		this.keywords = keywords;
 	}
 }
