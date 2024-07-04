@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "com.hwi.client.grpc";
+option java_outer_classname = "CrawlingServiceProto";
+
+service CrawlingService {
+  rpc Crawl (CrawlingRequest) returns (CrawlingResponse) {}
+}
+
+message CrawlingRequest {
+  string rss_link = 1;
+}
+
+message CrawlingResponse {
+  string title = 1;
+  string summary = 2;
+  string content = 3;
+  string author = 4;
+  string link = 5;
+  string publishedAt = 6;
+  repeated string tags = 7;
+}
