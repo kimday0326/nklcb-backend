@@ -46,7 +46,7 @@ public class Article extends BaseEntity {
 	private Company company;
 
 	@OneToMany(mappedBy = "article")
-	private List<ArticleTag> articleTags;
+	private List<ArticleKeyword> articleKeywords;
 
 	@Builder
 	public Article(
@@ -59,7 +59,7 @@ public class Article extends BaseEntity {
 		final LocalDateTime publishedAt,
 		final boolean isNotified,
 		final Company company,
-		final List<ArticleTag> articleTags) {
+		final List<ArticleKeyword> articleKeywords) {
 		this.title = title;
 		this.summary = summary;
 		this.content = content;
@@ -68,6 +68,6 @@ public class Article extends BaseEntity {
 		this.publishedAt = publishedAt;
 		this.isNotified = isNotified;
 		this.company = company;
-		this.articleTags = articleTags;
+		this.articleKeywords = articleKeywords;
 	}
 }

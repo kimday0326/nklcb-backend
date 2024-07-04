@@ -11,7 +11,7 @@ public class Company extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "rss_link")
-	private String rssLink;
-	
+	@Column(name = "rss_url")
+	private String rssUrl;
+
 }
