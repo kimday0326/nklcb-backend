@@ -1,5 +1,7 @@
 package com.hwi.client.grpc;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.stereotype.Service;
@@ -16,21 +18,27 @@ public class GrpcClientService {
 	@GrpcClient("crawling-grpc-server")
 	private CrawlingServiceGrpc.CrawlingServiceBlockingStub crawlingStub;
 
-	public CrawledArticle crawlArticles(final String rssLink) {
+	public List<CrawledArticle> crawlArticles(final String rssUrl) {
 		try {
 			final CrawlingServiceProto.CrawlingResponse response = this.crawlingStub.crawl(
 				CrawlingServiceProto.CrawlingRequest.newBuilder()
-					.setRssLink(rssLink)
+					.setRssUrl(rssUrl)
+					.setBaseTime(LocalDateTime.now().toString())
 					.build());
-			return CrawledArticle.builder()
-				.title(response.getTitle())
-				.summary(response.getSummary())
-				.content(response.getContent())
-				.author(response.getAuthor())
-				.link(response.getLink())
-				.publishedAt(DateTimeUtil.parseToLocalDateTime(response.getPublishedAt()))
-				.build();
-
+			for (CrawlingServiceProto.Article article : response.getArticlesList()) {
+				logger.info("Crawled article: " + article.getTitle());
+			}
+			return response.getArticlesList().stream()
+				.map(article -> CrawledArticle.builder()
+					.title(article.getTitle())
+					.summary(article.getSummary())
+					.content(article.getContent())
+					.author(article.getAuthor())
+					.link(article.getLink())
+					.publishedAt(LocalDateTime.parse(article.getPublishedAt()))
+					.keywords(article.getKeywordsList())
+					.build())
+				.toList();
 		} catch (final StatusRuntimeException e) {
 			logger.warning("RPC failed: " + e.getStatus());
 			return null;
