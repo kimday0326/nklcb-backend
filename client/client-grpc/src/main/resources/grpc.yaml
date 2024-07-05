@@ -1,6 +1,4 @@
-spring:
-  application:
-    name: client-grpc
+spring.config.activate.on-profile: local
 
 grpc:
   client:

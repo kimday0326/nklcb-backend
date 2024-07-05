@@ -5,7 +5,7 @@ spring:
     import:
       - optional:file:.env[.properties]
       - db-core.yaml
-  #      - monitoring.yml
+      - grpc.yaml
   #      - logging.yml
   web.resources.add-mappings: false
 
