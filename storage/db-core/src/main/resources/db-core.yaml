@@ -17,6 +17,15 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
+    show-sql: true
+    generate-ddl: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+      #      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
 
 storage:
   datasource:
