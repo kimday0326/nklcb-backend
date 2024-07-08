@@ -3,10 +3,9 @@ spring.profiles.active: local
 spring:
   config:
     import:
-      - optional:file:.env[.properties]
       - db-core.yaml
       - grpc.yaml
-  #      - logging.yml
+      - application-secret.yaml
   web.resources.add-mappings: false
 
 server:

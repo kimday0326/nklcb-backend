@@ -36,5 +36,6 @@ out/
 ### VS Code ###
 .vscode/
 
-.env*
+.env
+*-secret.yaml
 .DS_Store

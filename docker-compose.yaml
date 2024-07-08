@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  blue:
+    image: dhxl50/nklcb:latest
+    container_name: blue
+    ports:
+      - "8080:8080"
+
+  green:
+    image: dhxl50/nklcb:latest
+    container_name: green
+    ports:
+      - "8081:8081"
