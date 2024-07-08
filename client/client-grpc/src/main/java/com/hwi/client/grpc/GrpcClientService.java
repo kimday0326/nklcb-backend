@@ -19,12 +19,16 @@ public class GrpcClientService {
 	@GrpcClient("crawling-grpc-server")
 	private CrawlingServiceGrpc.CrawlingServiceBlockingStub crawlingStub;
 
-	public List<CrawledArticle> crawlArticles(final String rssUrl) {
+	public List<CrawledArticle> crawlArticles(
+		final String rssUrl,
+		final LocalDateTime startDateTime,
+		final LocalDateTime endDateTime) {
 		try {
-			final CrawlingServiceProto.CrawlingResponse response = this.crawlingStub.crawl(
+			final CrawlingServiceProto.CrawlingResponse response = crawlingStub.crawl(
 				CrawlingServiceProto.CrawlingRequest.newBuilder()
 					.setRssUrl(rssUrl)
-					.setBaseTime(DateTimeUtil.parseToLocalDateTime(LocalDateTime.now()))
+					.setStartDateTime(DateTimeUtil.formatLocalDateTime(startDateTime))
+					.setEndDateTime(DateTimeUtil.formatLocalDateTime(endDateTime))
 					.build());
 			return response.getArticlesList().stream()
 				.map(article -> CrawledArticle.builder()

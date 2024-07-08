@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = PRIVATE)
 public class DateTimeUtil {
-	public static String parseToLocalDateTime(LocalDateTime dateTime) {
+	public static String formatLocalDateTime(LocalDateTime dateTime) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 		return dateTime.format(formatter);
 	}

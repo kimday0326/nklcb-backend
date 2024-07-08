@@ -7,7 +7,11 @@ import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "article_keyword")
 public class ArticleKeyword extends BaseEntity {
@@ -20,4 +24,8 @@ public class ArticleKeyword extends BaseEntity {
 	@JoinColumn(name = "keyword_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private Keyword keyword;
 
+	public ArticleKeyword(Article article, Keyword keyword) {
+		this.article = article;
+		this.keyword = keyword;
+	}
 }
