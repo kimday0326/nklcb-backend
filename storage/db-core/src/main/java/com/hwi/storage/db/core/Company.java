@@ -3,7 +3,9 @@ package com.hwi.storage.db.core;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "company")
 public class Company extends BaseEntity {
