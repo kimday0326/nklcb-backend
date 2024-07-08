@@ -11,4 +11,4 @@ services:
     image: dhxl50/nklcb:latest
     container_name: green
     ports:
-      - "8081:8081"
+      - "8081:8080"
