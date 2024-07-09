@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hwi.core.api.article.dto.ArticleSummaryResponse;
-import com.hwi.core.api.keyword.dto.KeywordResponse;
+import com.hwi.core.api.keyword.dto.KeywordCountResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,8 +20,8 @@ public class KeywordController {
 	private final KeywordService keywordService;
 
 	@GetMapping
-	public List<KeywordResponse> getAllKeywords() {
-		return keywordService.getAllKeywords();
+	public List<KeywordCountResponse> getTopKeywords() {
+		return keywordService.getTopKeywords();
 	}
 
 	@GetMapping("/{keyword}/articles")
