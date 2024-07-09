@@ -25,15 +25,23 @@ public class ArticleController {
 	private final ArticleService articleService;
 
 	@GetMapping
-	@Operation(summary = "아티클 목록 조회")
-	public ApiResponse<List<ArticleSummaryResponse>> getArticles(@RequestParam Long page, @RequestParam Long size) {
+	@Operation(summary = "아티클 목록 조회", description = "아티클 목록을 조회합니다.")
+	public ApiResponse<List<ArticleSummaryResponse>> getArticles(
+		@RequestParam Long page,
+		@RequestParam Long size) {
 		return ApiResponse.success(articleService.getArticles(page, size));
 	}
 
 	@GetMapping("/{articleId}")
-	@Operation(summary = "아티클 상세 조회")
+	@Operation(summary = "아티클 상세 조회", description = "특정 아티클의 상세 정보를 조회합니다.")
 	public ApiResponse<ArticleDetailResponse> getArticleDetail(@PathVariable Long articleId) {
 		return ApiResponse.success(articleService.getArticleDetail(articleId));
 	}
 
+	@GetMapping("/summaries")
+	@Operation(summary = "특정 아티클 요약 조회", description = "특정 아티클들의 요약 정보를 조회합니다.")
+	public ApiResponse<List<ArticleSummaryResponse>> getArticlesByIds(
+		@RequestParam List<Long> ids) {
+		return ApiResponse.success(articleService.getArticlesByIds(ids));
+	}
 }

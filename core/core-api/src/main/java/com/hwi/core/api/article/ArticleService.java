@@ -10,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hwi.core.api.article.dto.ArticleDetailResponse;
 import com.hwi.core.api.article.dto.ArticleSummaryResponse;
 import com.hwi.storage.db.core.Article;
-import com.hwi.storage.db.core.repository.ArticleKeywordRepository;
 import com.hwi.storage.db.core.repository.ArticleRepository;
-import com.hwi.storage.db.core.repository.KeywordRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,8 +20,6 @@ import lombok.RequiredArgsConstructor;
 public class ArticleService {
 
 	private final ArticleRepository articleRepository;
-	private final KeywordRepository keywordRepository;
-	private final ArticleKeywordRepository articleKeywordRepository;
 
 	public List<ArticleSummaryResponse> getArticles(Long page, Long size) {
 		PageRequest pageRequest = PageRequest.of(page.intValue(), size.intValue(),
@@ -40,5 +36,11 @@ public class ArticleService {
 			.map(articleKeyword -> articleKeyword.getKeyword().getName())
 			.toList();
 		return ArticleDetailResponse.from(article, keywords);
+	}
+
+	public List<ArticleSummaryResponse> getArticlesByIds(List<Long> ids) {
+		return articleRepository.findAllById(ids).stream()
+			.map(ArticleSummaryResponse::from)
+			.toList();
 	}
 }
