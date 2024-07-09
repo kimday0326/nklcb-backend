@@ -27,6 +27,9 @@ public class KeywordService {
 	}
 
 	public List<ArticleSummaryResponse> getArticlesByKeyword(String keyword) {
-		return null;
+		final Long keywordId = keywordRepository.findByName(keyword)
+			.orElseThrow(() -> new IllegalArgumentException("키워드가 존재하지 않습니다.")).getId();
+		return articleKeywordRepository.findByKeywordId(keywordId).stream().map(articleKeyword ->
+			ArticleSummaryResponse.from(articleKeyword.getArticle())).toList();
 	}
 }
