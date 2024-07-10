@@ -34,7 +34,7 @@ NKLCB Backend 는 테크 블로그 크롤링 서비스인 "네카라쿠배"의 �
     ```sh
     ./gradlew build
     ```
-4. Make a application-secret.yaml
+4. Make an application-secret.yaml
     ```sh
     cd core/core-api/src/main/resources
     touch application-secret.yaml
