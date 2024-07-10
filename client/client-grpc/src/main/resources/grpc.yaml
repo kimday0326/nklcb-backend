@@ -3,7 +3,7 @@ spring.config.activate.on-profile: local
 grpc:
   client:
     crawling-grpc-server:
-      address: 'static://127.0.0.1:50051'
+      address: ${CRAWLING_GRPC_SERVER_ADDRESS}
       enableKeepAlive: true
       keepAliveWithoutCalls: true
       negotiationType: plaintext
