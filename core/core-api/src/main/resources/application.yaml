@@ -10,7 +10,7 @@ spring:
 
 server:
   tomcat:
-    max-connections: 20000
+    max-connections: 200
     threads:
-      max: 600
-      min-spare: 100
+      max: 100
+      min-spare: 30
