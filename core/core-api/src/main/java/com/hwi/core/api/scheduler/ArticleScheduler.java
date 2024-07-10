@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ArticleScheduler {
 	private static final String ZONE = "Asia/Seoul";
+	private static long count = 0;
 
 	private final GrpcClientService grpcClientService;
 	private final ArticleRepository articleRepository;
@@ -33,16 +35,18 @@ public class ArticleScheduler {
 	private final KeywordRepository keywordRepository;
 	private final ArticleKeywordRepository articleKeywordRepository;
 
+	@Async
 	@Transactional
-	@Scheduled(cron = "0 0 3 * * *", zone = ZONE)
+	@Scheduled(cron = "* * 3 * * *", zone = ZONE) // 매일 새벽 3시에 업데이트
 	public void crawlArticles() {
 		final Article latestArticle = articleRepository.findLatestArticle();
 		LocalDateTime startDateTime = latestArticle.getPublishedAt();
 		LocalDateTime endDateTime = LocalDateTime.now();
-		// LocalDateTime startDateTime = LocalDateTime.of(2023, 11, 1, 0, 0, 0);
-		// LocalDateTime endDateTime = LocalDateTime.of(2023, 11, 30, 0, 0, 0);
+		// LocalDateTime startDateTime = LocalDateTime.now().minusDays(30 * count + 30);
+		// LocalDateTime endDateTime = LocalDateTime.now().minusDays(30 * count++);
 
 		final List<Company> companies = companyRepository.findAll();
+
 		for (Company company : companies) {
 			log.info(">>>>>> Crawl Articles for Company = {}", company.getName());
 			grpcClientService.crawlArticles(company.getRssUrl(), startDateTime, endDateTime)

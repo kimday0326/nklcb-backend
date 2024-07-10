@@ -40,9 +40,6 @@ public class Article extends BaseEntity {
 	@Column(name = "published_at")
 	private LocalDateTime publishedAt;
 
-	@Column(name = "is_notified")
-	private boolean isNotified;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private Company company;
