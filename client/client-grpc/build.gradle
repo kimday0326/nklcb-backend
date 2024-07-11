@@ -12,29 +12,29 @@ dependencies {
 
 protobuf {
     protoc {
+        // Protocol Buffers 컴파일러(프로토콜 버퍼 정의 파일을 Java 코드로 컴파일) 아티팩트 지정
         artifact = "com.google.protobuf:protoc:3.25.1"
     }
     plugins {
         grpc {
+            // gRPC Java 코드 생성 플러그인 아티팩트 지정
             artifact = 'io.grpc:protoc-gen-grpc-java:1.64.0'
         }
     }
     generateProtoTasks {
         all()*.plugins {
-            grpc {}
+            grpc {} // 모든 프로토콜 버퍼 파일에 대해 gRPC 플러그인 사용 설정
         }
     }
 }
 
 tasks.named('compileJava') {
-    dependsOn 'generateProto'
+    dependsOn 'generateProto' // // compileJava 테스크가 수행되기 전, generateProto를 수행하도록 설정
 }
 
 sourceSets {
     main {
-        java.srcDirs += "build/generated/source/proto/main/java"
-        java.srcDirs += "build/generated/source/proto/main/grpc"
+        java.srcDirs += "build/generated/source/proto/main/java" // 프로토콜 버퍼로 생성된 Java 코드 디렉토리를 소스 디렉토리에 추가
+        java.srcDirs += "build/generated/source/proto/main/grpc" // gRPC로 생성된 Java 코드 디렉토리를 소스 디렉토리에 추가
     }
 }
-
-
