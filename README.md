@@ -2,6 +2,9 @@
 
 NKLCB Backend 는 테크 블로그 크롤링 서비스인 "네카라쿠배"의 백엔드 서버입니다.
 
+PDF: [nklkb.pdf](https://github.com/user-attachments/files/21110079/nklkb.pdf)
+
+
 ### [API 명세서 바로가기](http://52.79.94.51/swagger-ui/index.html)
 
 ## Stack
